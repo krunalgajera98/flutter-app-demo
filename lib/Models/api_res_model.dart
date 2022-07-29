@@ -1,0 +1,134 @@
+class ApiResModel {
+  ApiResModel({
+    this.page,
+    this.perPage,
+    this.total,
+    this.totalPages,
+    this.data,
+    this.support,
+  });
+
+  ApiResModel.fromJson(dynamic json) {
+    page = json['page'];
+    perPage = json['per_page'];
+    total = json['total'];
+    totalPages = json['total_pages'];
+    if (json['data'] != null) {
+      data = [];
+      json['data'].forEach((v) {
+        data?.add(ApiResData.fromJson(v));
+      });
+    }
+    support = json['support'] != null ? Support.fromJson(json['support']) : null;
+  }
+  int? page;
+  int? perPage;
+  int? total;
+  int? totalPages;
+  List<ApiResData>? data;
+  Support? support;
+  ApiResModel copyWith({
+    int? page,
+    int? perPage,
+    int? total,
+    int? totalPages,
+    List<ApiResData>? data,
+    Support? support,
+  }) =>
+      ApiResModel(
+        page: page ?? this.page,
+        perPage: perPage ?? this.perPage,
+        total: total ?? this.total,
+        totalPages: totalPages ?? this.totalPages,
+        data: data ?? this.data,
+        support: support ?? this.support,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['page'] = page;
+    map['per_page'] = perPage;
+    map['total'] = total;
+    map['total_pages'] = totalPages;
+    if (data != null) {
+      map['data'] = data?.map((v) => v.toJson()).toList();
+    }
+    if (support != null) {
+      map['support'] = support?.toJson();
+    }
+    return map;
+  }
+}
+
+class Support {
+  Support({
+    this.url,
+    this.text,
+  });
+
+  Support.fromJson(dynamic json) {
+    url = json['url'];
+    text = json['text'];
+  }
+  String? url;
+  String? text;
+  Support copyWith({
+    String? url,
+    String? text,
+  }) =>
+      Support(
+        url: url ?? this.url,
+        text: text ?? this.text,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['url'] = url;
+    map['text'] = text;
+    return map;
+  }
+}
+
+class ApiResData {
+  ApiResData({
+    this.id,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.avatar,
+  });
+
+  ApiResData.fromJson(dynamic json) {
+    id = json['id'];
+    email = json['email'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    avatar = json['avatar'];
+  }
+  int? id;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? avatar;
+  ApiResData copyWith({
+    int? id,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? avatar,
+  }) =>
+      ApiResData(
+        id: id ?? this.id,
+        email: email ?? this.email,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        avatar: avatar ?? this.avatar,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['email'] = email;
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['avatar'] = avatar;
+    return map;
+  }
+}
