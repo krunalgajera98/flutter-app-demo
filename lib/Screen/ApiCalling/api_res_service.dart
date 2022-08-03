@@ -20,4 +20,19 @@ class ApiResService {
     }
     return ApiResModel();
   }
+
+  static Future<ApiResModel> userGetApiCallWithPagination({int? offset}) async {
+    try {
+      final request = await _networkAPICall.get('users?page=$offset');
+      if (request != null) {
+        return ApiResModel.fromJson(request);
+      }
+    } catch (e) {
+      log("Discover Api Error $e");
+      rethrow;
+    } finally {
+      //loader end
+    }
+    return ApiResModel();
+  }
 }
