@@ -1,4 +1,6 @@
 import 'package:demo_flutter/Screen/ApiCalling/api_res_screen.dart';
+import 'package:demo_flutter/Screen/FaceBookLogin/facebook_login_screen.dart';
+import 'package:demo_flutter/Screen/GoogleLogin/google_login_screen.dart';
 import 'package:demo_flutter/Screen/Localization/Localization_screen.dart';
 import 'package:demo_flutter/Screen/SQLDataBase/sql_screen.dart';
 import 'package:demo_flutter/Screen/SharePreference/sharepref_screen.dart';
@@ -69,6 +71,18 @@ class HomePage extends StatelessWidget {
                   Get.toNamed(SpeedoMeter.routeName);
                 },
                 child: Text('SpeedoMeter'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(GoogleLoginScreen.routeName);
+                },
+                child: Text('GoogleLoginScreen'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(FaceBookLoginScreen.routeName);
+                },
+                child: Text('FaceBookLoginScreen'),
               ),
             ],
           ),

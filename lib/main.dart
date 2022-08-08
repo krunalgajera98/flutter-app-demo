@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import 'Screen/FaceBookLogin/facebook_login_screen.dart';
+import 'Screen/GoogleLogin/google_login_screen.dart';
 import 'Screen/HomePage/home_screen.dart';
 import 'Screen/Theme/theme_controller.dart';
 
@@ -48,38 +50,17 @@ class MyApp extends StatelessWidget {
             page: () => HomePage(),
             transition: Transition.fadeIn,
           ),
+          GetPage(name: ApiResScreen.routeName, page: () => ApiResScreen(), transition: Transition.fadeIn),
+          GetPage(name: SQLScreen.routeName, page: () => SQLScreen(), transition: Transition.fadeIn),
+          GetPage(name: SharePrefScreen.routeName, page: () => SharePrefScreen(), transition: Transition.fadeIn),
+          GetPage(name: ThemeScreen.routeName, page: () => ThemeScreen(), transition: Transition.fadeIn),
+          GetPage(name: LocalizationScreen.routeName, page: () => LocalizationScreen(), transition: Transition.fadeIn),
+          GetPage(name: TextFieldUI.routeName, page: () => TextFieldUI(), transition: Transition.fadeIn),
+          GetPage(name: SpeedMeter.routeName, page: () => SpeedMeter(), transition: Transition.fadeIn),
+          GetPage(name: SpeedoMeter.routeName, page: () => SpeedoMeter(), transition: Transition.fadeIn),
+          GetPage(name: GoogleLoginScreen.routeName, page: () => GoogleLoginScreen(), transition: Transition.fadeIn),
           GetPage(
-              name: ApiResScreen.routeName,
-              page: () => ApiResScreen(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: SQLScreen.routeName,
-              page: () => SQLScreen(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: SharePrefScreen.routeName,
-              page: () => SharePrefScreen(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: ThemeScreen.routeName,
-              page: () => ThemeScreen(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: LocalizationScreen.routeName,
-              page: () => LocalizationScreen(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: TextFieldUI.routeName,
-              page: () => TextFieldUI(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: SpeedMeter.routeName,
-              page: () => SpeedMeter(),
-              transition: Transition.fadeIn),
-          GetPage(
-              name: SpeedoMeter.routeName,
-              page: () => SpeedoMeter(),
-              transition: Transition.fadeIn),
+              name: FaceBookLoginScreen.routeName, page: () => FaceBookLoginScreen(), transition: Transition.fadeIn),
         ],
       );
     });
