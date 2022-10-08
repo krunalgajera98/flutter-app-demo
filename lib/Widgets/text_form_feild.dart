@@ -1,4 +1,3 @@
-import 'package:demo_flutter/Utils/color_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -95,7 +94,7 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color:  Colors.blue.withOpacity(0.5),
+                color: Colors.blue.withOpacity(0.5),
               ),
             ),
             enabled: enable,
@@ -124,9 +123,7 @@ class CustomTextFormField extends StatelessWidget {
 
   void removeDotIfNoValueAfterIt() {
     final String value = controller.text;
-    if (keyboardType == TextInputType.number &&
-        value.isNotEmpty &&
-        value[value.length - 1] == '.') {
+    if (keyboardType == TextInputType.number && value.isNotEmpty && value[value.length - 1] == '.') {
       controller.text = value.substring(0, value.length - 1);
       controller.selection = TextSelection.fromPosition(
         TextPosition(offset: controller.text.length),

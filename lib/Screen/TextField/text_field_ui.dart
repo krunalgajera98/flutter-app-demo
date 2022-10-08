@@ -5,7 +5,7 @@ class TextFieldUI extends StatelessWidget {
   static const routeName = '/TextFieldUI';
 
   TextFieldUI({Key? key}) : super(key: key);
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,9 @@ class TextFieldUI extends StatelessWidget {
               focusNode: FocusNode(),
               labelText: 'UserName',
               obscureText: false,
-              validator: (val) {},
+              validator: (val) {
+                return null;
+              },
               suffixIconTap: () {},
             ),
           ],

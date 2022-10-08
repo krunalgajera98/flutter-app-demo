@@ -9,8 +9,7 @@ class AppResDataBase {
   /// save data to local storage   ('UserData' TableName)
   static Future<int> saveData(ApiResData apiResDataList) async {
     var dbClient = await databaseHelper.db;
-    int res = await dbClient.insert("UserData", apiResDataList.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    int res = await dbClient.insert("UserData", apiResDataList.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
     log('dbClient response $res');
     return res;
   }

@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PaginationController extends GetxController {
-  Rx<ApiResModel> apiResModel = ApiResModel(data: []).obs;
   Rx<bool> paginationTeamLoader = false.obs;
   Rx<bool> isLoader = false.obs;
   RxInt offset = 1.obs;
   int perPage = 2; //generally 10
   ScrollController scrollController = ScrollController();
+  Rx<ApiResModel> apiResModel = ApiResModel(data: []).obs;
   ApiResModel result = ApiResModel();
 
   void onInit() {
@@ -27,6 +27,7 @@ class PaginationController extends GetxController {
       } else {
         paginationTeamLoader.value = true;
         offset.value += 1;
+        log('offset index: ${offset.value}');
         await userGetApiCallWithPagination(offset: offset.value);
         paginationTeamLoader.value = false;
       }

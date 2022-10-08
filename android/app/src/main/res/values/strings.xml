@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1662695910608396</string>
+    <string name="facebook_client_token">fa0364f7fb0054fef204a9425697a1d8</string>
+    <string name="app_name">flutterdemoapp</string>
+</resources>

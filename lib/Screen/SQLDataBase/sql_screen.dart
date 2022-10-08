@@ -35,11 +35,8 @@ class SQLScreen extends StatelessWidget {
                 onPressed: () async {
                   _sQLController.dataList.value = await AppResDataBase.getData();
                   print('dataList Length: ${_sQLController.dataList.length}');
-                  Get.snackbar(
-                      _sQLController.dataList.value.isEmpty ? 'Error' : 'Success',
-                      _sQLController.dataList.value.isEmpty
-                          ? 'No Data Found in Storage'
-                          : 'Fetch Data Successfully!',
+                  Get.snackbar(_sQLController.dataList.isEmpty ? 'Error' : 'Success',
+                      _sQLController.dataList.isEmpty ? 'No Data Found in Storage' : 'Fetch Data Successfully!',
                       snackPosition: SnackPosition.BOTTOM);
                 },
                 child: Text('GetData'),
@@ -63,8 +60,7 @@ class SQLScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 leading: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage('${_sQLController.dataList[index].avatar}'),
+                                  backgroundImage: NetworkImage('${_sQLController.dataList[index].avatar}'),
                                 ),
                                 trailing: Text('${_sQLController.dataList[index].id}'),
                                 title: Text(

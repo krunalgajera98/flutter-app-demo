@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:demo_flutter/Screen/FaceBookLogin/login_data_model.dart';
+import 'package:demo_flutter/Screen/Login/FaceBookLogin/login_data_model.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -57,6 +57,6 @@ class FaceBookLoginController extends GetxController {
         'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$faceBookToken'));
     var profile = json.decode(graphResponse.body);
     print(profile.toString());
-    log("Login User Data profile.toString()===> ${profile.toString()}");
+    log("getDataFromFaceBookToken ===> ${profile.toString()}");
   }
 }

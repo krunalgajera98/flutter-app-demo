@@ -24,8 +24,8 @@ class FaceBookLoginScreen extends StatelessWidget {
                       backgroundImage:
                           NetworkImage(_faceBookLoginController.loginDetail.value.picture?.data?.url.toString() ?? ''),
                     ),
-                    title: Text(_faceBookLoginController.loginDetail.value.name.toString() ?? ''),
-                    subtitle: Text(_faceBookLoginController.loginDetail.value.email.toString() ?? ''),
+                    title: Text(_faceBookLoginController.loginDetail.value.name.toString()),
+                    subtitle: Text(_faceBookLoginController.loginDetail.value.email.toString()),
                   ),
             ElevatedButton(
               onPressed: () {

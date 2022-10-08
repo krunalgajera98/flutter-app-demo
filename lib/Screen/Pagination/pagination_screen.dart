@@ -19,7 +19,7 @@ class PaginationScreen extends StatelessWidget {
         () => ListView.builder(
           shrinkWrap: true,
           controller: _paginationController.scrollController,
-          itemCount: (_paginationController.apiResModel.value.data?.length ?? 0) + 1,
+          itemCount: (_paginationController.apiResModel.value.data?.length ?? 0),
           itemBuilder: (context, index) {
             print('index: ${_paginationController.apiResModel.value.data?.length}/${index}');
             if (index >= (_paginationController.apiResModel.value.data?.length ?? 0) &&

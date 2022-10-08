@@ -3,6 +3,7 @@ import 'package:demo_flutter/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class CustomDropDown extends StatelessWidget {
   final double? height;
   // final double? width;

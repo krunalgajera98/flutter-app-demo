@@ -7,7 +7,7 @@ class SpeedoMeter extends StatelessWidget {
   static const routeName = '/SpeedoMeter';
 
   SpeedoMeter({Key? key}) : super(key: key);
-  SpeedController _speedController = Get.put(SpeedController());
+  final SpeedController _speedController = Get.put(SpeedController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,24 +24,18 @@ class SpeedoMeter extends StatelessWidget {
                         minimum: 0,
                         maximum: 200,
                         labelOffset: 30,
-                        axisLineStyle:
-                            AxisLineStyle(thicknessUnit: GaugeSizeUnit.factor, thickness: 0.03),
-                        majorTickStyle:
-                            MajorTickStyle(length: 6, thickness: 4, color: Colors.white),
-                        minorTickStyle:
-                            MinorTickStyle(length: 3, thickness: 3, color: Colors.white),
-                        axisLabelStyle: GaugeTextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+                        axisLineStyle: AxisLineStyle(thicknessUnit: GaugeSizeUnit.factor, thickness: 0.03),
+                        majorTickStyle: MajorTickStyle(length: 6, thickness: 4, color: Colors.white),
+                        minorTickStyle: MinorTickStyle(length: 3, thickness: 3, color: Colors.white),
+                        axisLabelStyle: GaugeTextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
                     RadialAxis(
                       minimum: 0,
                       maximum: 200,
                       labelOffset: 30,
-                      axisLineStyle:
-                          AxisLineStyle(thicknessUnit: GaugeSizeUnit.factor, thickness: 0.03),
+                      axisLineStyle: AxisLineStyle(thicknessUnit: GaugeSizeUnit.factor, thickness: 0.03),
                       majorTickStyle: MajorTickStyle(length: 6, thickness: 4, color: Colors.white),
                       minorTickStyle: MinorTickStyle(length: 3, thickness: 3, color: Colors.white),
-                      axisLabelStyle: GaugeTextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                      axisLabelStyle: GaugeTextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                       ranges: <GaugeRange>[
                         GaugeRange(
                             startValue: 0,
@@ -68,26 +62,21 @@ class SpeedoMeter extends StatelessWidget {
                       annotations: <GaugeAnnotation>[
                         GaugeAnnotation(
                             widget: Container(
-                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                              Text(_speedController.velocity.value.toStringAsFixed(2),
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              Text('var ${_speedController.velocity1.value.toStringAsFixed(2)}',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              SizedBox(height: 20),
-                              Text('Kmph',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold))
-                            ])),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(_speedController.velocity.value.toStringAsFixed(2),
+                                      style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold)),
+                                  Text('var ${_speedController.velocity1.value.toStringAsFixed(2)}',
+                                      style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold)),
+                                  SizedBox(height: 20),
+                                  Text('Kmph',
+                                      style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold))
+                                ],
+                              ),
+                            ),
                             angle: 90,
-                            positionFactor: 0.75)
+                            positionFactor: 0.75),
                       ],
                     ),
                     RadialAxis(
@@ -100,12 +89,9 @@ class SpeedoMeter extends StatelessWidget {
                         showAxisLine: false,
                         showLastLabel: false,
                         minorTicksPerInterval: 4,
-                        majorTickStyle:
-                            MajorTickStyle(length: 8, thickness: 3, color: Colors.white),
-                        minorTickStyle:
-                            MinorTickStyle(length: 3, thickness: 1.5, color: Colors.grey),
-                        axisLabelStyle: GaugeTextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                        majorTickStyle: MajorTickStyle(length: 8, thickness: 3, color: Colors.white),
+                        minorTickStyle: MinorTickStyle(length: 3, thickness: 1.5, color: Colors.grey),
+                        axisLabelStyle: GaugeTextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                         onLabelCreated: labelCreated),
                   ],
                 ),

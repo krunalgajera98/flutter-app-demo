@@ -8,10 +8,10 @@ import 'package:get/get.dart';
 
 class LocalizationScreen extends StatelessWidget {
   static const routeName = '/LocalizationScreen';
-  LangController _langController = Get.put(LangController());
-
   LocalizationScreen({Key? key}) : super(key: key);
-  RxBool loader = false.obs;
+  final LangController _langController = Get.put(LangController());
+
+  final RxBool loader = false.obs;
 
   @override
   Widget build(BuildContext context) {

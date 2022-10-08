@@ -19,19 +19,19 @@ class DatabaseHelper {
 
   DatabaseHelper.internal();
 
-  initDb() async {
+  Future<dynamic> initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "main.db");
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
   }
 
-  void _onCreate(Database db, int version) async {
+  Future<void> _onCreate(Database db, int version) async {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS UserData(id INTEGER PRIMARY KEY, email TEXT, first_name TEXT, last_name TEXT, avatar TEXT)");
   }
 
-  delete() async {
+  Future<void> delete() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "FlutterDemo.db");
     await deleteDatabase(path);

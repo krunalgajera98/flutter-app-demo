@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart' as loc;
-import 'package:permission_handler/permission_handler.dart';
 
 class SpeedController extends GetxController {
   // Rx<Timer>? timer;
@@ -40,6 +39,7 @@ class SpeedController extends GetxController {
         .getPositionStream(
       locationSettings: LocationSettings(
         accuracy: LocationAccuracy.lowest,
+        distanceFilter: 10,
         timeLimit: Duration(milliseconds: 200),
       ),
     )
@@ -101,10 +101,9 @@ class SpeedController extends GetxController {
         return;
       }
     }
-
-    // location.onLocationChanged.listen((loc.LocationData currentLocation) {
-    //   print("longitude/longitude ===> ${currentLocation.latitude} : ${currentLocation.longitude}");
-    // });
+    location.onLocationChanged.listen((loc.LocationData currentLocation) {
+      print("longitude/longitude ===> ${currentLocation.latitude} : ${currentLocation.longitude}");
+    });
   }
 
   void onShareFacebook() async {
@@ -115,20 +114,18 @@ class SpeedController extends GetxController {
 
     /// Timer
     try {
-
-        Geolocator.getPositionStream().listen((Position position) {
-          print('Geolocator.getPositionStream()');
-          velocity.value = position.speed;
-          streamController.value.sink.add(position.speed);
-        });
-
-
-      timer = Timer.periodic(const Duration(milliseconds: 400), (timer) async {
-        Position position = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.bestForNavigation);
-        velocity1.value = position.speed;
-        // streamController.value.sink.add(position.speed);
+      Geolocator.getPositionStream().listen((Position position) {
+        velocity.value = position.speed;
+        print('getPositionStream ===> ${velocity.value}');
+        streamController.value.sink.add(position.speed);
       });
+
+      // timer = Timer.periodic(const Duration(milliseconds: 400), (timer) async {
+      //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+      //   velocity1.value = position.speed;
+      //   print('Geolocator.00 ${(velocity1.value * 3600) / 1000}');
+      //   // streamController.value.sink.add(position.speed);
+      // });
     } on Exception catch (e) {
       print('timer Exception: $e');
     }
