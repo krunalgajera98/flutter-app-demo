@@ -1,6 +1,6 @@
 import 'package:demo_flutter/Screen/Animation/ui_with_animation.dart';
 import 'package:demo_flutter/Screen/ApiCalling/api_res_screen.dart';
-import 'package:demo_flutter/Screen/ImagePickerCrop/image_crop.dart';
+import 'package:demo_flutter/Screen/FireBase/RemoteMessage/firebase_notification.dart';
 import 'package:demo_flutter/Screen/Localization/Localization_screen.dart';
 import 'package:demo_flutter/Screen/Localization/loc_service_getx.dart';
 import 'package:demo_flutter/Screen/Login/FaceBookLogin/facebook_login_screen.dart';
@@ -9,6 +9,7 @@ import 'package:demo_flutter/Screen/Pagination/pagination_screen.dart';
 import 'package:demo_flutter/Screen/SQLDataBase/sql_screen.dart';
 import 'package:demo_flutter/Screen/SharePreference/shared_preferences.dart';
 import 'package:demo_flutter/Screen/SharePreference/sharepref_screen.dart';
+import 'package:demo_flutter/Screen/SplashScreen/splash_screen.dart';
 import 'package:demo_flutter/Screen/SppedMeter/speed.dart';
 import 'package:demo_flutter/Screen/SppedMeter/speedmeter.dart';
 import 'package:demo_flutter/Screen/TextField/text_field_ui.dart';
@@ -27,13 +28,14 @@ import 'Screen/Theme/theme_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      // options: FirebaseOptions(
-      //   apiKey: 'AIzaSyDz5GrQTHWiY_RudrwD8v7lqHgTyLP458U',
-      //   appId: '1:945117182376:android:440264540f90d3bd38859d',
-      //   messagingSenderId: '945117182376',
-      //   projectId: 'flip-clock-fecc8',
-      // ),
-      );
+    // options: FirebaseOptions(
+    //   apiKey: 'AIzaSyDz5GrQTHWiY_RudrwD8v7lqHgTyLP458U',
+    //   appId: '1:945117182376:android:440264540f90d3bd38859d',
+    //   messagingSenderId: '945117182376',
+    //   projectId: 'flip-clock-fecc8',
+    // ),
+  );
+  // await FireBaseNotification().setUpLocalNotification();
   await SharedPrefs.initMySharedPreferences();
   runApp(MyApp());
 }
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: HomePage.routeName,
+        initialRoute: SplashScreen.routeName,
         initialBinding: AppBinding(),
 
         /// theme
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
         fallbackLocale: LocalizationService.fallbackLocale,
         translations: LocalizationService(),
         getPages: [
+          GetPage(name: SplashScreen.routeName, page: () => SplashScreen(), transition: Transition.fadeIn),
           GetPage(name: HomePage.routeName, page: () => HomePage(), transition: Transition.fadeIn),
           GetPage(name: ApiResScreen.routeName, page: () => ApiResScreen(), transition: Transition.fadeIn),
           GetPage(name: SQLScreen.routeName, page: () => SQLScreen(), transition: Transition.fadeIn),
@@ -72,7 +75,6 @@ class MyApp extends StatelessWidget {
           GetPage(name: PaginationScreen.routeName, page: () => PaginationScreen(), transition: Transition.fadeIn),
           GetPage(
               name: FaceBookLoginScreen.routeName, page: () => FaceBookLoginScreen(), transition: Transition.fadeIn),
-          GetPage(name: ImageScanner.routeName, page: () => ImageScanner(), transition: Transition.fadeIn),
           GetPage(name: UIWithAnimation.routeName, page: () => UIWithAnimation(), transition: Transition.fadeIn),
           GetPage(
               name: MobileAuthenticationScreen.routeName,
@@ -90,3 +92,15 @@ class AppBinding extends Bindings {
     // Get.put(ThemeController());
   }
 }
+
+/*
+Git create repocreate
+- git init
+- git remote add origin gitrepolink
+- git add .
+- git commit & push
+
+remove
+- project files > remove git folder
+- preference > version control  > remove repo
+*/

@@ -19,13 +19,15 @@ class PaginationScreen extends StatelessWidget {
         () => ListView.builder(
           shrinkWrap: true,
           controller: _paginationController.scrollController,
-          itemCount: (_paginationController.apiResModel.value.data?.length ?? 0),
+          itemCount: _paginationController.paginationTeamLoader.value
+              ? (_paginationController.apiResModel.value.data?.length ?? 0) + 1
+              : (_paginationController.apiResModel.value.data?.length ?? 0),
           itemBuilder: (context, index) {
             print('index: ${_paginationController.apiResModel.value.data?.length}/${index}');
             if (index >= (_paginationController.apiResModel.value.data?.length ?? 0) &&
                 _paginationController.paginationTeamLoader.value) {
               return Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(50),
                 child: CircularProgressIndicator(),
               );
             }

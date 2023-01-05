@@ -48,6 +48,13 @@ class SQLScreen extends StatelessWidget {
                 },
                 child: Text('DeleteData'),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  await AppResDataBase.getDataByItems(name: 'Michael',id: 7);
+                  // refresh();
+                },
+                child: Text('getDataByItems'),
+              ),
               Obx(
                 () {
                   print(_apiResController.isLoader);

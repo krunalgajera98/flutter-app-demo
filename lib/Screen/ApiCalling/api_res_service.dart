@@ -1,38 +1,33 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_flutter/Models/api_res_model.dart';
-import 'package:demo_flutter/Screen/ApiCalling/network_helper.dart';
+import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/api.dart';
+import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/check_response.dart';
 
 class ApiResService {
-  static final NetworkAPICall _networkAPICall = NetworkAPICall();
-
   static Future<ApiResModel> userGetApiCall() async {
     try {
-      final request = await _networkAPICall.get('users?page=2');
-      if (request != null) {
-        return ApiResModel.fromJson(request);
-      }
+      /// enter end point only and get method join with base url
+      var result = await Api().get('users?page=2');
+      print("getInfo status: ${result.statusCode} body:${result.body}");
+      await ResponseHandler.checkResponseError(result);
+      return ApiResModel.fromJson(jsonDecode(result.bodyBytes));
     } catch (e) {
-      log("Discover Api Error $e");
+      log("userGetApiCallWithPagination1 error : E $e");
       rethrow;
-    } finally {
-      //loader end
     }
-    return ApiResModel();
   }
 
   static Future<ApiResModel> userGetApiCallWithPagination({int? offset}) async {
     try {
-      final request = await _networkAPICall.get('users?page=$offset');
-      if (request != null) {
-        return ApiResModel.fromJson(request);
-      }
+      var result = await Api().get('users?page=$offset');
+      print("getInfo status: ${result.statusCode} body:${result.body}");
+      await ResponseHandler.checkResponseError(result);
+      return ApiResModel.fromJson(jsonDecode(utf8.decode(result.bodyBytes)));
     } catch (e) {
-      log("Discover Api Error $e");
+      log("userGetApiCallWithPagination1 error : E $e");
       rethrow;
-    } finally {
-      //loader end
     }
-    return ApiResModel();
   }
 }

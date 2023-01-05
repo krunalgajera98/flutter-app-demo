@@ -124,7 +124,7 @@ class FireBaseNotification {
         InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) => selectNotification(payload));
-    print("flutterLocalNotificationsPlugin Complete");
+    print("setUpLocalNotification: flutterLocalNotificationsPlugin Complete");
   }
 
   Future selectNotification(String? notificationPayload) async {

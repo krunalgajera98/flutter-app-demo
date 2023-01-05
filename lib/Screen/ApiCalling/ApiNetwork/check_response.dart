@@ -1,32 +1,44 @@
 import 'dart:convert';
 
 import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/app_exception.dart';
+import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/error_response.dart';
 import 'package:http/http.dart' as http;
 
-dynamic checkResponse(http.Response response) {
-  try {
+class ResponseHandler {
+  static Future<void> checkResponseError(http.Response response, {bool showException = true}) async {
     switch (response.statusCode) {
       case 200:
-        try {
-          if (response.body.isEmpty) {
-            throw AppException(message: 'Response body is empty', errorCode: 0);
-          }
-          return jsonDecode(response.body);
-        } catch (e) {
-          rethrow;
-        }
+        return;
+      case 201:
+        return;
+      case 401:
+        print(response.body.toString());
+        // if (Get.currentRoute != Routes.signUpScreen) {
+        //   AppPreference().clearSharedPreferences();
+        //   AppPreference.setBoolean(Constants.keyFirstTime, value: true);
+        //   Navigation.replaceAll(Routes.signUpScreen);
+        // }
+        var exception = AppException(
+          message: "Unauthorized",
+          errorCode: response.statusCode,
+        );
+        throw exception;
+      case 500:
+        print(response.body.toString());
+        var exception = AppException(
+          message: "No Internet",
+          errorCode: response.statusCode,
+        );
+        throw exception;
       default:
-        try {
-          if (response.body.isEmpty) {
-            throw AppException(message: 'Response body is empty', errorCode: response.statusCode);
-          }
-          final Map<String, dynamic> data = jsonDecode(response.body);
-          throw AppException(message: "error : ${data['Error']}", errorCode: response.statusCode);
-        } catch (e) {
-          rethrow;
-        }
+        print(response.body.toString());
+        ErrorResponse error = ErrorResponse.fromJson(jsonDecode(response.body));
+        var exception = AppException(
+          message: error.apiError?.message ?? "Something went wrong..!",
+          errorCode: response.statusCode,
+        );
+        if (showException) exception.show();
+        throw exception;
     }
-  } catch (e) {
-    rethrow;
   }
 }
