@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/app_exception.dart';
+import 'package:demo_flutter/Utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -94,7 +95,6 @@ class Api {
     http.StreamedResponse response = await request.send();
     String result = await response.stream.bytesToString();
     return result;
-    // return checkResponse(result);
   }
 
   Future<dynamic> multipartRequestList(String url,
@@ -127,7 +127,7 @@ class Api {
   }) async {
     final response = await dio.get(
       getUrl(url, queryParameters: queryData),
-      headers: headers(),
+      // headers: headers(),
     );
     return response;
   }
@@ -145,7 +145,7 @@ Map<String, String> headers() {
 }
 
 Uri getUrl(String endpoint, {Map<String, dynamic>? queryParameters}) {
-  String url = " \${ApiConstants.BASE_URL}$endpoint";
+  String url = "${ApiConstants.BASE_URL}$endpoint";
   // String url = "${ApiConstants.BASE_URL}$endpoint";
   if (queryParameters != null && queryParameters.isNotEmpty) {
     url = "$url?";

@@ -9,10 +9,10 @@ class ApiResService {
   static Future<ApiResModel> userGetApiCall() async {
     try {
       /// enter end point only and get method join with base url
-      var result = await Api().get('users?page=2');
-      print("getInfo status: ${result.statusCode} body:${result.body}");
+      var result = await Api().get('?page=2');
+      print("userGetApiCall status: ${result.statusCode} body:${result.body}");
       await ResponseHandler.checkResponseError(result);
-      return ApiResModel.fromJson(jsonDecode(result.bodyBytes));
+      return ApiResModel.fromJson(jsonDecode(result.body));
     } catch (e) {
       log("userGetApiCallWithPagination1 error : E $e");
       rethrow;
@@ -21,10 +21,11 @@ class ApiResService {
 
   static Future<ApiResModel> userGetApiCallWithPagination({int? offset}) async {
     try {
-      var result = await Api().get('users?page=$offset');
-      print("getInfo status: ${result.statusCode} body:${result.body}");
+      var result = await Api().get('?page=$offset');
+      print("userGetApiCallWithPagination status: ${result.statusCode} body:${result.body}");
       await ResponseHandler.checkResponseError(result);
-      return ApiResModel.fromJson(jsonDecode(utf8.decode(result.bodyBytes)));
+      return ApiResModel.fromJson(jsonDecode(result.body));
+      // return ApiResModel.fromJson(jsonDecode(utf8.decode(result.bodyBytes)));
     } catch (e) {
       log("userGetApiCallWithPagination1 error : E $e");
       rethrow;
