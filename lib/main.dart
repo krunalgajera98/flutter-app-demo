@@ -1,6 +1,6 @@
 import 'package:demo_flutter/Screen/Animation/ui_with_animation.dart';
 import 'package:demo_flutter/Screen/ApiCalling/api_res_screen.dart';
-import 'package:demo_flutter/Screen/FireBase/RemoteMessage/firebase_notification.dart';
+import 'package:demo_flutter/Screen/DialogCallBack/screen.dart';
 import 'package:demo_flutter/Screen/Localization/Localization_screen.dart';
 import 'package:demo_flutter/Screen/Localization/loc_service_getx.dart';
 import 'package:demo_flutter/Screen/Login/FaceBookLogin/facebook_login_screen.dart';
@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
           GetPage(
               name: FaceBookLoginScreen.routeName, page: () => FaceBookLoginScreen(), transition: Transition.fadeIn),
           GetPage(name: UIWithAnimation.routeName, page: () => UIWithAnimation(), transition: Transition.fadeIn),
+          GetPage(name: CallBackScreen.routeName, page: () => CallBackScreen(), transition: Transition.fadeIn),
           GetPage(
               name: MobileAuthenticationScreen.routeName,
               page: () => MobileAuthenticationScreen(),
