@@ -10,7 +10,6 @@ class GoogleLoginScreen extends StatelessWidget {
   GoogleLoginScreen({Key? key}) : super(key: key);
   final GoogleLoginController _googleLoginController = Get.put(GoogleLoginController());
 
-// a,a,n,n,n,h,u,a,s,g,r,i,a,a,r,s,z,k
   @override
   Widget build(BuildContext context) {
     return Scaffold(

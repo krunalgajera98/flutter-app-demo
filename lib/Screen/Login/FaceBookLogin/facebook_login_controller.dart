@@ -9,10 +9,12 @@ import 'package:http/http.dart' as http;
 class FaceBookLoginController extends GetxController {
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
   Rx<LoginDataModel> loginDetail = LoginDataModel().obs;
-  static const String faceBookToken =
-      "EAAXoNo8fDgwBAL3hvhs8fLltWFBbvwZAhyoVSDys1DkOKHw1JgZCgZApqyXN6rb3pOWMqnNGo7AcfBVXKCyRNi8he8fonhoZCzwVVubyHq9pZCYDvBxc8yElIN2RiZCjsYDtmLh9jZCtuFq0fZCTg5TR5ZB5ZCOAjZCO4LabiFyYX5ZAGWqXgZBgviZAIoxCajyHdKnC6t5DuffHjsI9oJKl0ZAtN05yWILGggcQpV9XKtc4frLaIil4WZBYQcZBr";
+  static String faceBookToken = "";
 
   Future<void> initiateFacebookLogin() async {
+    /// This login working without firebase
+    /// Set "facebook_app_id", "facebook_client_token" in your android/app/src/main/res/values/strings.xml file and AndroidManifest.xml
+    /// This token can be generated in facebook developer account basically client gives this id & token
     if (faceBookToken.isNotEmpty) {
       return;
     }
@@ -22,7 +24,7 @@ class FaceBookLoginController extends GetxController {
         print('LoginStatus: success');
         final AccessToken accessToken = loginResult.accessToken!;
         log("result.status ===> ${accessToken.toJson()}");
-        // faceBookToken = accessToken.token;
+        faceBookToken = accessToken.token;
         final userData = await _facebookAuth.getUserData();
         loginDetail.value = await LoginDataModel.fromJson(userData);
         break;

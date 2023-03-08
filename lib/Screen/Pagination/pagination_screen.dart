@@ -8,7 +8,6 @@ class PaginationScreen extends StatelessWidget {
 
   PaginationScreen({Key? key}) : super(key: key);
 
-  // dataList
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +18,16 @@ class PaginationScreen extends StatelessWidget {
         () => ListView.builder(
           shrinkWrap: true,
           controller: _paginationController.scrollController,
-          itemCount: _paginationController.paginationTeamLoader.value
+          itemCount: _paginationController.paginationLoader.value
               ? (_paginationController.apiResModel.value.data?.length ?? 0) + 1
               : (_paginationController.apiResModel.value.data?.length ?? 0),
           itemBuilder: (context, index) {
-            print('index: ${_paginationController.apiResModel.value.data?.length}/${index}');
-            if (index >= (_paginationController.apiResModel.value.data?.length ?? 0) &&
-                _paginationController.paginationTeamLoader.value) {
+            var data = _paginationController.apiResModel.value.data;
+            print('index: ${data?.length}/${index}');
+            if (index >= (data?.length ?? 0) && _paginationController.paginationLoader.value) {
               return Padding(
-                padding: const EdgeInsets.all(50),
-                child: CircularProgressIndicator(),
+                padding: const EdgeInsets.all(30),
+                child: Center(child: CircularProgressIndicator()),
               );
             }
             return Container(
@@ -36,7 +35,7 @@ class PaginationScreen extends StatelessWidget {
               color: Colors.yellow,
               margin: EdgeInsets.all(12),
               child: Center(
-                child: Text(_paginationController.apiResModel.value.data?[index].firstName ?? ''),
+                child: Text((data?[index].id.toString() ?? '') + '\t-\t' + (data?[index].firstName.toString() ?? '')),
               ),
             );
           },

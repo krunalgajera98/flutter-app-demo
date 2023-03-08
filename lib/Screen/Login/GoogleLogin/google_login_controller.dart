@@ -4,6 +4,7 @@
 // Client Secret: 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
 ///
 import 'dart:convert' show json;
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,11 +32,13 @@ class GoogleLoginController extends GetxController {
 
   Future<void> googleSignIn() async {
     try {
+      /// make sure you enable google login in firebase console
       isLoading.value = true;
       await _googleSignIn.signIn();
       isLoading.value = false;
-    } catch (error) {
-      print('handleSignIn error ===> $error');
+    } catch (error, st) {
+      log('handleSignIn error ===> $error && st: $st');
+      isLoading.value = false;
     }
   }
 

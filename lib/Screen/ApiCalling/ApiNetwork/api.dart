@@ -146,7 +146,6 @@ Map<String, String> headers() {
 
 Uri getUrl(String endpoint, {Map<String, dynamic>? queryParameters}) {
   String url = "${ApiConstants.BASE_URL}$endpoint";
-  // String url = "${ApiConstants.BASE_URL}$endpoint";
   if (queryParameters != null && queryParameters.isNotEmpty) {
     url = "$url?";
     for (int i = 0; i < queryParameters.entries.length; i++) {

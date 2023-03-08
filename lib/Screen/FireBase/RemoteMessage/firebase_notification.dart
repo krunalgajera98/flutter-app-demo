@@ -34,7 +34,8 @@ class FireBaseNotification {
   late FirebaseMessaging firebaseMessaging;
   late AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
-    'High Importance Notifications', // title
+    'High Importance Notifications', // title,
+    description: 'Description',
     // 'This channel is used for important notifications.', // description
     importance: Importance.high,
   );
@@ -51,7 +52,7 @@ class FireBaseNotification {
 
   static bool isNotification = false;
 
-  void firebaseCloudMessagingLSetup() async {
+  Future<void> firebaseCloudMessagingLSetup() async {
     firebaseMessaging = FirebaseMessaging.instance;
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -62,8 +63,8 @@ class FireBaseNotification {
     await firebaseMessaging.getToken().then((token) {
       /// required to save in utils
       // Constants.firebaseToken = token!;
-      log('FCM TOKEN to be Registered: $token');
-      debugPrint('FCM TOKEN to be Registered: $token');
+      log('FCM TOKEN: $token');
+      debugPrint('FCM TOKEN: $token');
     });
 
     // Fired when app is coming from a terminated state
@@ -74,7 +75,7 @@ class FireBaseNotification {
 
     // Get any messages which caused the application to open from
     // a terminated state.
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    final RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     // If the message also contains a data property with a “type” of “chat”,
     // navigate to a chat screen
     if (initialMessage != null) {
@@ -98,9 +99,9 @@ class FireBaseNotification {
 
   Future<void> setUpLocalNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/launcher_icon');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: false,
         requestBadgePermission: false,
         requestSoundPermission: false,
@@ -123,7 +124,8 @@ class FireBaseNotification {
     final InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) => selectNotification(payload));
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) =>
+          selectNotification(notificationResponse.payload),);
     print("setUpLocalNotification: flutterLocalNotificationsPlugin Complete");
   }
 
@@ -134,7 +136,7 @@ class FireBaseNotification {
     }
   }
 
-  void iOSPermission(firebaseMessaging) {
+  void iOSPermission(FirebaseMessaging firebaseMessaging) {
     firebaseMessaging.requestPermission(
       alert: true,
       badge: true,
@@ -142,14 +144,14 @@ class FireBaseNotification {
     );
   }
 
-  void showLocalNotification(RemoteMessage message) async {
-    RemoteNotification? notification = message.notification;
+  Future<void> showLocalNotification(RemoteMessage message) async {
+    final RemoteNotification? notification = message.notification;
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('your channel id', 'your channel name',
             channelDescription: 'your channel description',
             importance: Importance.max,
             //largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_largeIcon'),
-            icon: '@mipmap/launcher_icon',
+            icon: '@mipmap/ic_launcher',
             priority: Priority.high,
             ticker: 'ticker');
     const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);

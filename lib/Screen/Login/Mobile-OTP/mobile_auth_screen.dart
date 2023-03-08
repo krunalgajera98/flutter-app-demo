@@ -22,13 +22,8 @@ class MobileAuthenticationScreen extends StatelessWidget {
             CustomTextFormField(
               controller: _mobileLoginController.mobileController,
               keyboardType: TextInputType.number,
-              focusNode: FocusNode(),
               labelText: 'Mobile no.',
-              obscureText: false,
-              validator: (val) {
-                return null;
-              },
-              suffixIconTap: () {},
+              focusNode: FocusNode(),
             ),
             SizedBox(
               height: 20,
@@ -36,13 +31,8 @@ class MobileAuthenticationScreen extends StatelessWidget {
             CustomTextFormField(
               controller: _mobileLoginController.otpController,
               keyboardType: TextInputType.number,
-              focusNode: FocusNode(),
               labelText: 'Enter OTP',
-              obscureText: false,
-              validator: (val) {
-                return null;
-              },
-              suffixIconTap: () {},
+              focusNode: FocusNode(),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -52,7 +42,11 @@ class MobileAuthenticationScreen extends StatelessWidget {
               child: Text('Send otp'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await FireBaseAuthentication.otpVerification(
+                  smsCode: _mobileLoginController.otpController.text,
+                );
+              },
               child: Text('Verify otp'),
             ),
           ],

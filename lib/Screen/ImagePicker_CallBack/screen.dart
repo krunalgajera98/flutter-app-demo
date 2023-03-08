@@ -1,12 +1,16 @@
+import 'dart:io';
+
+import 'package:demo_flutter/Screen/ImagePicker_CallBack/image_picker_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CallBackScreen extends StatelessWidget {
-  static const routeName = '/CallBackScreen';
+class ImagePickerCallBackScreen extends StatelessWidget {
+  static const routeName = '/ImagePickerCallBackScreen';
+  ImagePickerController _pickerController = Get.put(ImagePickerController());
 
-  const CallBackScreen({Key? key}) : super(key: key);
+  ImagePickerCallBackScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +18,22 @@ class CallBackScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Obx(
+            () => _pickerController.imagePath.value != ''
+                ? Image.file(
+                    File(_pickerController.imagePath.value),
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.fill,
+                  )
+                : Text('Select Image From Button'),
+          ),
           Center(
             child: ElevatedButton(
-              onPressed: () {
-                imagePickerDialog(context, (String path) {
+              onPressed: () async{
+                await imagePickerDialog(context, (String path) {
                   print('ImagePickerDialog Path: $path');
+                  _pickerController.imagePath.value = path;
                 });
               },
               child: Text('Pick Image'),

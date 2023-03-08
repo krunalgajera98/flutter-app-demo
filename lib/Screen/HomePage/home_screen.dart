@@ -1,7 +1,8 @@
 import 'package:demo_flutter/Screen/Animation/ui_with_animation.dart';
 import 'package:demo_flutter/Screen/ApiCalling/api_res_screen.dart';
-import 'package:demo_flutter/Screen/DialogCallBack/screen.dart';
+import 'package:demo_flutter/Screen/CheckBox_DropDown_RadioButton/check_drop_radio_screen.dart';
 import 'package:demo_flutter/Screen/FireBase/RemoteMessage/firebase_notification.dart';
+import 'package:demo_flutter/Screen/ImagePicker_CallBack/screen.dart';
 import 'package:demo_flutter/Screen/Localization/Localization_screen.dart';
 import 'package:demo_flutter/Screen/Login/FaceBookLogin/facebook_login_screen.dart';
 import 'package:demo_flutter/Screen/Login/GoogleLogin/google_login_screen.dart';
@@ -9,8 +10,6 @@ import 'package:demo_flutter/Screen/Login/Mobile-OTP/mobile_auth_screen.dart';
 import 'package:demo_flutter/Screen/Pagination/pagination_screen.dart';
 import 'package:demo_flutter/Screen/SQLDataBase/sql_screen.dart';
 import 'package:demo_flutter/Screen/SharePreference/sharepref_screen.dart';
-import 'package:demo_flutter/Screen/SppedMeter/speed.dart';
-import 'package:demo_flutter/Screen/SppedMeter/speedmeter.dart';
 import 'package:demo_flutter/Screen/TextField/text_field_ui.dart';
 import 'package:demo_flutter/Screen/Theme/theme_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(toolbarHeight: 20),
+        appBar: AppBar(title: Text('𝙆𝙍𝙐𝙉𝘼𝙇'), centerTitle: true, toolbarHeight: 22),
         body: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -82,18 +81,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(SpeedMeter.routeName);
-                  },
-                  child: Text('SpeedMeter'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(SpeedoMeter.routeName);
-                  },
-                  child: Text('SpeedoMeter'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
                     Get.toNamed(PaginationScreen.routeName);
                   },
                   child: Text('Pagination'),
@@ -124,9 +111,15 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(CallBackScreen.routeName);
+                    Get.toNamed(ImagePickerCallBackScreen.routeName);
                   },
-                  child: Text('CallBack'),
+                  child: Text('ImagePicker(camera & file) or CallBack'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed(OptionWidgets.routeName);
+                  },
+                  child: Text('CheckBox - DropDown - Nested RadioButton'),
                 ),
               ],
             ),

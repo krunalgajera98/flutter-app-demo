@@ -6,43 +6,47 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PaginationController extends GetxController {
-  Rx<bool> paginationTeamLoader = false.obs;
+  Rx<bool> paginationLoader = false.obs;
   Rx<bool> isLoader = false.obs;
-  RxInt offset = 1.obs;
+  RxInt offset = 1.obs; // offset means total page
   int perPage = 2; //generally 10
   ScrollController scrollController = ScrollController();
   Rx<ApiResModel> apiResModel = ApiResModel(data: []).obs;
   ApiResModel result = ApiResModel();
 
   void onInit() {
-    userGetApiCallWithPagination(offset: 1);
+    userGetApiCallWithPagination(currentPage: 1);
     scrollController.addListener(Pagination);
     super.onInit();
   }
 
   Future<void> Pagination() async {
-    if ((scrollController.position.pixels == scrollController.position.maxScrollExtent)) {
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200 &&
+        paginationLoader.value == false) {
       if (result.data!.isEmpty || (result.data?.length ?? 0) < perPage) {
         log('Error: offset Not found');
       } else {
-        paginationTeamLoader.value = true;
-        offset.value += 1;
+        paginationLoader.value = true;
         log('offset index: ${offset.value}');
-        await userGetApiCallWithPagination(offset: offset.value);
-        paginationTeamLoader.value = false;
+
+        await Future.delayed(
+            Duration(seconds: 3)); //  ❌ This Delay was added to just see loader effect, Remove it when in actual use
+        await userGetApiCallWithPagination(currentPage: offset.value);
+        paginationLoader.value = false;
       }
     }
   }
 
-  Future<void> userGetApiCallWithPagination({int? offset}) async {
+  Future<void> userGetApiCallWithPagination({int? currentPage}) async {
     try {
       isLoader.value = true;
-      result = await ApiResService.userGetApiCallWithPagination(offset: offset);
+      result = await ApiResService.userGetApiCallWithPagination(offset: currentPage);
+      offset.value += 1;
       apiResModel.value.data?.addAll(result.data ?? []);
       apiResModel.refresh();
     } catch (e, st) {
       isLoader.value = false;
-      log("Error Message: $e : $st");
+      log("Error Message : $e : $st");
     } finally {
       isLoader.value = false;
     }

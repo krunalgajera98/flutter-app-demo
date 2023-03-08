@@ -1,5 +1,12 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'package:crypto/crypto.dart';
+import 'package:demo_flutter/Utils/app_function/app_function.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class FireBaseAuthentication {
   static final FireBaseAuthentication instance = FireBaseAuthentication.init();
@@ -34,11 +41,24 @@ class FireBaseAuthentication {
   //////////////     Login Email      /////////////////////
 
   static Future<UserCredential> signInWithEmail({String? email, String? password}) async {
-    UserCredential userCredential = await auth.signInWithEmailAndPassword(
-      email: email!,
-      password: password!,
-    );
-    return userCredential;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email ?? '',
+        password: password ?? '',
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        AppFunction.snackBar(type: 'Error!', Message: 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        AppFunction.snackBar(type: 'Error!', Message: 'wrong-password');
+        print('Wrong password provided for that user.');
+      } else {
+        AppFunction.snackBar(type: 'Error!', Message: e.message.toString());
+      }
+      throw '';
+    }
   }
 
   static Future<UserCredential> registerWithEmail({String? email, String? password}) async {
@@ -60,6 +80,7 @@ class FireBaseAuthentication {
       verificationCompleted: (PhoneAuthCredential credential) {
         auth.signInWithCredential(credential).then((value) async {
           if (value.user != null) {
+            AppFunction.snackBar(type: 'Success', Message: 'Varification Complte sucsessful With Mobile number');
             print("Varification Complte sucsessful With Mobile number");
           }
         });
@@ -83,7 +104,7 @@ class FireBaseAuthentication {
         }
       },
     );
-    print("phoneNumber 01 : $phoneNumber");
+    print("phoneNumber 00 : $phoneNumber");
   }
 
   //////////////     OTP Verification      /////////////////////
@@ -104,6 +125,39 @@ class FireBaseAuthentication {
       });
     } catch (e) {
       print("Invalid OTP ==>>${e}");
+    }
+  }
+
+  //////////////     Apple Login      /////////////////////
+
+  Future<void> signInWithApple(bool isSignIn) async {
+    /// First integration code according to package description
+    try {
+      final rawNonce = generateNonce();
+      final nonce = AppFunction.sha256ofString(rawNonce);
+
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+
+      final credential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+
+      final UserCredential authResult = await auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+      log('signInWithApple user : $user');
+      ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(content: Text('You are Login Successfully')));
+    } catch (e, st) {
+      if (e.toString().contains("account already exists")) {
+        FirebaseAuth.instance.signOut();
+        log('signInWithApple error : $e && st: $st');
+      }
     }
   }
 
