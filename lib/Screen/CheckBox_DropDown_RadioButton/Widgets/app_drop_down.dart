@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable
 class CustomDropDown extends StatelessWidget {
@@ -40,7 +39,7 @@ class CustomDropDown extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             style: TextStyle(
-              fontSize: 12.sp,
+              fontSize: 14,
             ),
             isExpanded: true,
             icon: Icon(

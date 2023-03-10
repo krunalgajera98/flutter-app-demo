@@ -27,7 +27,7 @@ class ThemeScreen extends StatelessWidget {
                     _themeController.switchValDark.value = value;
                     Get.changeThemeMode(
                         _themeController.switchValDark.value == true ? ThemeMode.dark : ThemeMode.light);
-                    await SharedPrefs.saveTheme(_themeController.switchValDark.value);
+                    await SharedPrefs.setBool(key: PrefString.isDarkMode,value :_themeController.switchValDark.value);
                   },
                   activeColor: CupertinoColors.activeGreen,
                 ),

@@ -15,7 +15,7 @@ class ThemeController extends GetxController {
     return switchValDark.value ? ThemeMode.dark : ThemeMode.light;
   }
 
-  getTheme() async {
-    switchValDark.value = await SharedPrefs.getTheme();
+  getTheme() {
+    switchValDark.value = SharedPrefs.getBool(key: PrefString.isDarkMode);
   }
 }

@@ -8,36 +8,49 @@ class SharedPrefs {
     prefsData = await SharedPreferences.getInstance();
   }
 
-  static Future<void> saveUser(User user) async {
-    print("Save user pref ==> ${user.email} / ${user.isIDVerified} / ${user.phoneNo}");
-    await prefsData.setString("email", user.email ?? '');
-    await prefsData.setBool("isIDVerified", user.isIDVerified ?? false);
-    await prefsData.setInt("phoneNo", user.phoneNo ?? 0);
+  /// setter
+  static Future<void> setString({required String key, required String value}) async {
+    print("Set string key:$key & value: $value");
+    await prefsData.setString(key, value);
   }
 
-  static Future<User?> getUser() async {
-    String? email = prefsData.getString("email") ?? "";
-    bool? isIDVerified = prefsData.getBool("isIDVerified") ?? false;
-    int? phoneNo = prefsData.getInt("phoneNo") ?? 0;
-    if (email != "" && phoneNo != 0) {
-      return User(email: email, phoneNo: phoneNo, isIDVerified: isIDVerified);
-    }
-    return null;
+  static Future<void> setInt({required String key, required int value}) async {
+    print("Set string key:$key & value: $value");
+    await prefsData.setInt(key, value);
+  }
+
+  static Future<void> setBool({required String key, required bool value}) async {
+    print("Set bool key:$key & value: $value");
+    await prefsData.setBool(key, value);
+  }
+
+  /// getter
+  static String getString({required String key}) {
+    String value = prefsData.getString(key) ?? "";
+    print("Get string key: $key & value: $value");
+    return value;
+  }
+
+  static int getInt({required String key}) {
+    int value = prefsData.getInt(key) ?? 0;
+    print("Get string key: $key & value: $value");
+    return value;
+  }
+
+  static bool getBool({required String key}) {
+    bool value = prefsData.getBool(key) ?? false;
+    print("Get bool key: $key & value: $value");
+    return value;
   }
 
   static Future<void> clearUser() async {
-    prefsData.setString("email", "");
-    prefsData.setInt("phoneNo", 0);
-    prefsData.setBool("isIDVerified", false);
+    prefsData.clear();
   }
+}
 
-  /// for saving themeMode
-  static Future<void> saveTheme(bool isDarkMode) async {
-    print("Save Theme ==> $isDarkMode");
-    await prefsData.setBool("isDarkMode", isDarkMode);
-  }
-
-  static Future<bool> getTheme() async {
-    return prefsData.getBool("isDarkMode") ?? false;
-  }
+class PrefString {
+  static const String email = 'email';
+  static const String isIDVerified = 'isIDVerified';
+  static const String phoneNo = 'phoneNo';
+  static const String isDarkMode = 'isDarkMode';
 }

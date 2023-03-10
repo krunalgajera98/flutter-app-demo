@@ -28,14 +28,14 @@ class SharePrefScreen extends StatelessWidget {
                     isIDVerified: true,
                     phoneNo: 8140500528,
                   );
-                  await SharedPrefs.saveUser(user);
+                  _sharePrefController.saveUser(user);
                   refresh();
                 },
                 child: Text('SaveData in SharePref'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  _sharePrefController.user.value = await SharedPrefs.getUser() ?? User();
+                  _sharePrefController.getUser();
                   Get.snackbar(
                       _sharePrefController.user.value.email?.isEmpty ?? true ? 'Error' : 'Success',
                       _sharePrefController.user.value.email?.isEmpty ?? true
@@ -74,7 +74,7 @@ class SharePrefScreen extends StatelessWidget {
     );
   }
 
-  void refresh() async {
-    _sharePrefController.user.value = await SharedPrefs.getUser() ?? User();
+  void refresh() {
+    _sharePrefController.getUser();
   }
 }
