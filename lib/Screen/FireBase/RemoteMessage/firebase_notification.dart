@@ -79,7 +79,7 @@ class FireBaseNotification {
     // If the message also contains a data property with a “type” of “chat”,
     // navigate to a chat screen
     if (initialMessage != null) {
-      NavigationUtils.notificationNavigationName = initialMessage.data['redirect'].toString();
+      // NavigationUtils.notificationNavigationName = initialMessage.data['redirect'].toString();
     }
 
     // Fired when app is in foreground
@@ -189,7 +189,7 @@ class FireBaseNotification {
     selectNotificationStream.listen((String? payload) {
       print('receiveNotification configureSelectNotificationSubject 00');
       Map data = payload != null ? json.decode(payload) : {};
-      NavigationUtils.navigationSwitch(data);
+      // NavigationUtils.navigationSwitch(data);
     });
   }
 

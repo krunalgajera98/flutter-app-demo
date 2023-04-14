@@ -1,29 +1,9 @@
-import 'package:demo_flutter/Screen/Animation/ui_with_animation.dart';
-import 'package:demo_flutter/Screen/ApiCalling/api_res_screen.dart';
-import 'package:demo_flutter/Screen/CheckBox_DropDown_RadioButton/check_drop_radio_screen.dart';
 import 'package:demo_flutter/Screen/FireBase/RemoteMessage/firebase_notification.dart';
-import 'package:demo_flutter/Screen/ImagePicker_CallBack/screen.dart';
-import 'package:demo_flutter/Screen/Localization/Localization_screen.dart';
-import 'package:demo_flutter/Screen/Localization/loc_service_getx.dart';
-import 'package:demo_flutter/Screen/Login/FaceBookLogin/facebook_login_screen.dart';
-import 'package:demo_flutter/Screen/Login/Mobile-OTP/mobile_auth_screen.dart';
-import 'package:demo_flutter/Screen/Pagination/pagination_screen.dart';
-import 'package:demo_flutter/Screen/SQLDataBase/sql_screen.dart';
 import 'package:demo_flutter/Screen/SharePreference/shared_preferences.dart';
-import 'package:demo_flutter/Screen/SharePreference/sharepref_screen.dart';
-import 'package:demo_flutter/Screen/SplashScreen/splash_screen.dart';
-import 'package:demo_flutter/Screen/TextField/text_field_ui.dart';
-import 'package:demo_flutter/Screen/Theme/theme_screen.dart';
-import 'package:demo_flutter/Utils/color_res.dart';
+import 'package:demo_flutter/flutter_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
-
-import 'Screen/HomePage/home_screen.dart';
-import 'Screen/Login/GoogleLogin/google_login_screen.dart';
-import 'Screen/Theme/theme_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,80 +19,15 @@ void main() async {
   await SharedPrefs.initMySharedPreferences();
   runApp(MyApp());
 }
-
-class MyApp extends StatelessWidget {
-  ThemeController _themeController = Get.put(ThemeController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Listener(
-      onPointerDown: (_) {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          // currentFocus.focusedChild?.unfocus();
-          // FocusManager.instance.primaryFocus?.unfocus();
-          WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-        }
-      },
-      child: Sizer(builder: (context, orientation, deviceType) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: SplashScreen.routeName,
-          initialBinding: AppBinding(),
-
-          /// theme
-          theme: Themes.light,
-          darkTheme: Themes.dark,
-          themeMode: _themeController.setTheme(),
-
-          /// localization
-          locale: LocalizationService.locale,
-          fallbackLocale: LocalizationService.fallbackLocale,
-          translations: LocalizationService(),
-          getPages: [
-            GetPage(name: SplashScreen.routeName, page: () => SplashScreen(), transition: Transition.fadeIn),
-            GetPage(name: HomePage.routeName, page: () => HomePage(), transition: Transition.fadeIn),
-            GetPage(name: ApiResScreen.routeName, page: () => ApiResScreen(), transition: Transition.fadeIn),
-            GetPage(name: SQLScreen.routeName, page: () => SQLScreen(), transition: Transition.fadeIn),
-            GetPage(name: SharePrefScreen.routeName, page: () => SharePrefScreen(), transition: Transition.fadeIn),
-            GetPage(name: ThemeScreen.routeName, page: () => ThemeScreen(), transition: Transition.fadeIn),
-            GetPage(
-                name: LocalizationScreen.routeName, page: () => LocalizationScreen(), transition: Transition.fadeIn),
-            GetPage(name: TextFieldUI.routeName, page: () => TextFieldUI(), transition: Transition.fadeIn),
-            GetPage(name: GoogleLoginScreen.routeName, page: () => GoogleLoginScreen(), transition: Transition.fadeIn),
-            GetPage(name: PaginationScreen.routeName, page: () => PaginationScreen(), transition: Transition.fadeIn),
-            GetPage(name: OptionWidgets.routeName, page: () => OptionWidgets(), transition: Transition.fadeIn),
-            GetPage(
-                name: FaceBookLoginScreen.routeName, page: () => FaceBookLoginScreen(), transition: Transition.fadeIn),
-            GetPage(name: UIWithAnimation.routeName, page: () => UIWithAnimation(), transition: Transition.fadeIn),
-            GetPage(
-                name: ImagePickerCallBackScreen.routeName,
-                page: () => ImagePickerCallBackScreen(),
-                transition: Transition.fadeIn),
-            GetPage(
-                name: MobileAuthenticationScreen.routeName,
-                page: () => MobileAuthenticationScreen(),
-                transition: Transition.fadeIn),
-          ],
-        );
-      }),
-    );
-  }
-}
-
-class AppBinding extends Bindings {
-  @override
-  void dependencies() {
-    // Get.put(ThemeController());
-  }
-}
-
-// Git create repocreate
+// Upload project to git
+// - create repo in Github
+// - open terminal and follow below command
 // - git init
-// - git remote add origin gitrepolink
+// - git remote add origin "enter git repo link"
 // - git add .
-// - git commit & push
+// - git commit -m "commit message"
+// - git push
 //
-// remove
+// Remove git from project
 // - project files > remove git folder
-// - preference > version control  > remove repo
+// - Android studio setting(preference) > version control  > remove from Directory Mappings

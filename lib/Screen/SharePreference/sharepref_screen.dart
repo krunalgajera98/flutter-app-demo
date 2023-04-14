@@ -1,5 +1,4 @@
-import 'package:demo_flutter/Models/user_model.dart';
-import 'package:demo_flutter/Screen/SharePreference/SharePrefController.dart';
+import 'package:demo_flutter/Screen/SharePreference/controller.dart';
 import 'package:demo_flutter/Screen/SharePreference/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +14,7 @@ class SharePrefScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('SQL DataBase'),
+          title: Text('SharedPrefs DataBase'),
           centerTitle: true,
         ),
         body: Center(
@@ -23,32 +22,21 @@ class SharePrefScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  User user = User(
-                    email: 'krunalgajera98@gmail.com',
-                    isIDVerified: true,
-                    phoneNo: 8140500528,
-                  );
-                  _sharePrefController.saveUser(user);
-                  refresh();
+                  await SharedPrefs.setString(key: PrefString.email, value: 'krunalgajera98@gmail.com');
+                  await SharedPrefs.setBool(key: PrefString.isIDVerified, value: true);
+                  await SharedPrefs.setInt(key: PrefString.phoneNo, value: 8140500528);
                 },
-                child: Text('SaveData in SharePref'),
+                child: Text('SaveData'),
               ),
               ElevatedButton(
                 onPressed: () async {
                   _sharePrefController.getUser();
-                  Get.snackbar(
-                      _sharePrefController.user.value.email?.isEmpty ?? true ? 'Error' : 'Success',
-                      _sharePrefController.user.value.email?.isEmpty ?? true
-                          ? 'No Data Found in Storage'
-                          : 'Fetch Data Successfully!',
-                      snackPosition: SnackPosition.BOTTOM);
                 },
                 child: Text('GetData'),
               ),
               ElevatedButton(
                 onPressed: () async {
                   await SharedPrefs.clearUser();
-                  refresh();
                 },
                 child: Text('DeleteData'),
               ),
@@ -56,25 +44,18 @@ class SharePrefScreen extends StatelessWidget {
                 height: 30,
               ),
               Obx(
-                () {
-                  return Column(
-                    children: [
-                      Text('PhoneNo: ${_sharePrefController.user.value.phoneNo.toString()}'),
-                      Text(
-                          'isIDVerified: ${_sharePrefController.user.value.isIDVerified.toString()}'),
-                      Text('Email: ${_sharePrefController.user.value.email.toString()}'),
-                    ],
-                  );
-                },
+                ()=>Column(
+                  children: [
+                    Text('PhoneNo: ${_sharePrefController.phoneNo.value.toString()}'),
+                    Text('isIDVerified: ${_sharePrefController.isIDVerified.value.toString()}'),
+                    Text('Email: ${_sharePrefController.email.value.toString()}'),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  void refresh() {
-    _sharePrefController.getUser();
   }
 }

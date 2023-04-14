@@ -1,3 +1,14 @@
+/// FireBase Project SetUp
+// curl -sL https://firebase.tools | bash
+// firebase login
+// dart pub global activate flutterfire_cli
+// export PATH="$PATH":"$HOME/.pub-cache/bin"
+// flutterfire configure --project=fir-da115
+
+// if already login first
+// firebase logout
+// firebase login add:krunalgajera98@gmail.com
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FSDBService {
@@ -37,24 +48,10 @@ class FSDBService {
 
   /// stream for get data with any changes
   static Future<void> streamForGetAllData() async {
-    // await databaseReference.collection("Student").doc('111').get().then((value) {
-    //   print('getUser: ${value.data().toString()}');
-    // });
-
     Stream collectionStream = FirebaseFirestore.instance.collection('Student').snapshots();
     collectionStream.listen((event) {
       print('getUser event: ${event.data().toString()}');
     });
-    // FirebaseFirestore.instance
-    //     .collection('users')
-    //     .snapshots(includeMetadataChanges: true);
-    // print('getUser ==> ${data.}');
-    // await databaseReference.collection("Student").where("age", isEqualTo: 22).get().then((value) {
-    //   if (value.docs.isNotEmpty) {
-    //     print('getUser: ${value.docs.toString()}');
-    //     // user = User.fromJson(value?.documents?.first?.data);
-    //   }
-    // });
   }
 
   static Future<void> streamForGetUserBaseData() async {
@@ -82,6 +79,18 @@ class FSDBService {
           print('getUser: ${element.data().toString()}');
         });
       }
+    });
+  }
+
+  static Future<void> addDataInSpecificField() async {
+    /// collection >> document >>  field  ( StudentList ni andar add thay )
+    databaseReference.collection('Quotation').doc('data').update({
+      "StudentList": FieldValue.arrayUnion([
+        {
+          'name': 'name',
+          "email": 'test@gmail.com',
+        }
+      ])
     });
   }
 }

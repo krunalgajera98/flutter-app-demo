@@ -18,22 +18,22 @@ class ResponseHandler {
         //   AppPreference.setBoolean(Constants.keyFirstTime, value: true);
         //   Navigation.replaceAll(Routes.signUpScreen);
         // }
-        var exception = AppException(
+        final exception = AppException(
           message: "Unauthorized",
           errorCode: response.statusCode,
         );
         throw exception;
       case 500:
         print(response.body.toString());
-        var exception = AppException(
+        final exception = AppException(
           message: "No Internet",
           errorCode: response.statusCode,
         );
         throw exception;
       default:
         print(response.body.toString());
-        ErrorResponse error = ErrorResponse.fromJson(jsonDecode(response.body));
-        var exception = AppException(
+        final ErrorResponse error = ErrorResponse.fromJson(jsonDecode(response.body));
+        final exception = AppException(
           message: error.apiError?.message ?? "Something went wrong..!",
           errorCode: response.statusCode,
         );

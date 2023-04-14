@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 class AppException implements Exception {
-  //un_known error code -> 0
   late String message;
   String? tag;
   int errorCode;

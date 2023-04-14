@@ -2,7 +2,6 @@ import 'package:demo_flutter/Utils/color_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_borders/gradient_borders.dart';
-import 'package:sizer/sizer.dart';
 
 class CustomTextField extends StatelessWidget {
   final bool readOnly;
@@ -107,7 +106,7 @@ class CustomTextField extends StatelessWidget {
             readOnly: readOnly,
             style: TextStyle(
               color: textColor ?? Colors.white,
-              fontSize: fontSize ?? 13.sp,
+              fontSize: fontSize ?? 14,
               fontWeight: textWeight,
               letterSpacing: latterSpacing,
             ),
@@ -149,7 +148,7 @@ class CustomTextField extends StatelessWidget {
                   : suffixIcon,
               hintStyle: TextStyle(
                 color: hintColor ?? Colors.white,
-                fontSize: hintTextFontSize ?? 13.sp,
+                fontSize: hintTextFontSize ?? 14,
                 fontWeight: textWeight,
                 letterSpacing: latterSpacing,
               ),

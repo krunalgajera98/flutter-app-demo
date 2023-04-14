@@ -1,9 +1,9 @@
-import 'package:demo_flutter/Models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
   static late SharedPreferences prefsData;
 
+  /// place in "main.dart" file like: await SharedPrefs.initMySharedPreferences();
   static Future initMySharedPreferences() async {
     prefsData = await SharedPreferences.getInstance();
   }
@@ -53,4 +53,5 @@ class PrefString {
   static const String isIDVerified = 'isIDVerified';
   static const String phoneNo = 'phoneNo';
   static const String isDarkMode = 'isDarkMode';
+  static const String token = 'token';
 }

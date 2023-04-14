@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -68,7 +67,7 @@ class CustomTextFormField extends StatelessWidget {
               },
               decoration: InputDecoration(
                 counterText: "",
-                contentPadding: EdgeInsets.all(3.8.w),
+                contentPadding: EdgeInsets.all(20),
                 suffixIcon: obscureText
                     ? IconButton(
                         icon: Icon(
@@ -102,13 +101,13 @@ class CustomTextFormField extends StatelessWidget {
                 fillColor: Colors.blue,
                 labelText: labelText,
                 labelStyle: TextStyle(
-                  fontSize: 10.sp,
+                  fontSize: 14,
                   color: hasFocus.value ? Colors.blue : Colors.grey,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               style: TextStyle(
-                fontSize: 11.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.blue,
                 decoration: TextDecoration.none,

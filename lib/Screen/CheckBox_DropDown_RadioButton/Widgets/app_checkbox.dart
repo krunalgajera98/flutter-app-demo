@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+
 
 class AppCheckBox extends StatelessWidget {
   bool checkValue;
@@ -33,7 +33,7 @@ class AppCheckBox extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 4.w,
+            width: 40,
           ),
           Expanded(
             child: Text(text),

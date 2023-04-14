@@ -4,7 +4,6 @@ import 'package:demo_flutter/Utils/color_res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 
 class ThemeScreen extends StatelessWidget {
   static const routeName = '/ThemeScreen';
@@ -35,11 +34,11 @@ class ThemeScreen extends StatelessWidget {
 
               /// UI
               SizedBox(
-                height: 10.h,
+                height: 100,
               ),
               Container(
-                width: 30.w,
-                height: 15.h,
+                width: 150,
+                height: 150,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: AppColor.backgroundColor(context),
@@ -54,11 +53,11 @@ class ThemeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 2.h,
+                height:20,
               ),
               Container(
-                width: 30.w,
-                height: 15.h,
+                width: 150,
+                height: 150,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: AppColor.back2Color(context),

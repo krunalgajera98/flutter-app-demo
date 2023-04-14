@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:demo_flutter/Screen/ApiCalling/api_res_controller.dart';
 import 'package:demo_flutter/Screen/SQLDataBase/service/api_res_database_api.dart';
 import 'package:demo_flutter/Screen/SQLDataBase/sql_controller.dart';
@@ -9,7 +11,7 @@ class SQLScreen extends StatelessWidget {
 
   SQLScreen({Key? key}) : super(key: key);
   final SQLController _sQLController = Get.put(SQLController());
-  final ApiResController _apiResController = Get.find();
+  final ApiResController _apiResController = Get.put(ApiResController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class SQLScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   _apiResController.apiResModel.value.data?.forEach((element) async {
+                    log('ele: ${element.toJson()}');
                     await AppResDataBase.saveData(element);
                     refresh();
                   });
@@ -50,8 +53,7 @@ class SQLScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  await AppResDataBase.getDataByItems(name: 'Michael',id: 7);
-                  // refresh();
+                  _sQLController.dataList.value = await AppResDataBase.getDataByItems(name: 'Tobias', id: 9);
                 },
                 child: Text('getDataByItems'),
               ),

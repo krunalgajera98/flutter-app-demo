@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/app_exception.dart';
-import 'package:demo_flutter/Utils/api_constants.dart';
+import 'package:demo_flutter/Screen/ApiCalling/ApiNetwork/api_constants.dart';
+import 'package:demo_flutter/Screen/SharePreference/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -89,19 +90,19 @@ class Api {
     Map<String, dynamic>? queryData,
     String path = '',
   }) async {
-    var request = http.MultipartRequest('POST', Uri.parse('\${ApiConstants.BASE_URL}/common/uploadS3'));
+    final request = http.MultipartRequest('POST', Uri.parse('\${ApiConstants.BASE_URL}/common/uploadS3'));
     request.headers.addAll(headers());
     request.files.add(await http.MultipartFile.fromPath('file', path));
-    http.StreamedResponse response = await request.send();
-    String result = await response.stream.bytesToString();
+    final http.StreamedResponse response = await request.send();
+    final result = await http.Response.fromStream(response);
     return result;
   }
 
   Future<dynamic> multipartRequestList(String url,
       {required String key, Map<String, String>? body, List<String>? imageList}) async {
     try {
-      String fullURL = 'BASE_URL + url';
-      var request = http.MultipartRequest('POST', Uri.parse(fullURL));
+      final String fullURL = 'BASE_URL + $url';
+      final request = http.MultipartRequest('POST', Uri.parse(fullURL));
       request.headers.addAll(headers());
       request.fields.addAll(body!);
       if (imageList != null && imageList.isNotEmpty) {
@@ -109,10 +110,10 @@ class Api {
           request.files.add(await http.MultipartFile.fromPath(key, element));
         });
       }
-      http.StreamedResponse response = await request.send();
+      final http.StreamedResponse response = await request.send();
       if (response.statusCode == 200 || response.statusCode == 201) {
-        var data = await response.stream.bytesToString();
-        return data;
+        final result = await http.Response.fromStream(response);
+        return result;
       } else {
         AppException.showException('Invalid parameter!');
       }
@@ -127,7 +128,7 @@ class Api {
   }) async {
     final response = await dio.get(
       getUrl(url, queryParameters: queryData),
-      // headers: headers(),
+      headers: headers(),
     );
     return response;
   }
@@ -137,10 +138,12 @@ Map<String, String> headers() {
   final Map<String, String> headers = <String, String>{};
   headers["Content-Type"] = "application/json";
   headers["Accept"] = "application/json";
-  // if (AppPreference.isUserLogin()) {
-  //   log('Authorization Token : ${AppPreference.getUserToken()}');
-  //   headers["Authorization"] = '${AppPreference.getUserToken()}';
-  // }
+  String token = SharedPrefs.getString(key: PrefString.token);
+  log('Authorization Token : $token');
+
+  if (token.isNotEmpty) {
+    headers["Authorization"] = token;
+  }
   return headers;
 }
 

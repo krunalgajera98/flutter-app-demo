@@ -82,13 +82,3 @@ class Student {
     };
   }
 }
-// FireBase Project SetUp
-// curl -sL https://firebase.tools | bash
-// firebase login
-// dart pub global activate flutterfire_cli
-// export PATH="$PATH":"$HOME/.pub-cache/bin"
-// flutterfire configure --project=fir-da115
-
-// if already login first
-// firebase logout
-// firebase login add:krunalgajera98@gmail.com

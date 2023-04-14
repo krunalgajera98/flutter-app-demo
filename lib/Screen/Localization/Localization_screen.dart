@@ -1,13 +1,14 @@
 // import 'package:easy_localization/easy_localization.dart' ;
+import 'package:demo_flutter/Screen/CheckBox_DropDown_RadioButton/Widgets/app_drop_down.dart';
 import 'package:demo_flutter/Screen/Localization/lang_controller.dart';
 import 'package:demo_flutter/Screen/Localization/loc_service_getx.dart';
 import 'package:demo_flutter/Utils/color_res.dart';
-import 'package:demo_flutter/Widgets/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LocalizationScreen extends StatelessWidget {
   static const routeName = '/LocalizationScreen';
+
   LocalizationScreen({Key? key}) : super(key: key);
   final LangController _langController = Get.put(LangController());
 
@@ -21,7 +22,6 @@ class LocalizationScreen extends StatelessWidget {
           () {
             print(loader.value);
             return Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -40,15 +40,16 @@ class LocalizationScreen extends StatelessWidget {
                   },
                   child: Text('Hindi with getx'),
                 ),
-                CustomDropDown(
-                  color: AppColor.backgroundColor(context),
-                  hint: "Select Language",
-                  selectedValue: _langController.selectedLanguage.value,
-                  dropDownList: _langController.languageList,
-                  onChanged: (val) {
-                    _langController.selectedLanguage.value = val;
-                    LocalizationService().changeLocale(_langController.selectedLanguage.value);
-                  },
+                Obx(
+                  () => CustomDropDown(
+                    hint: "Select Language",
+                    selectedValue: _langController.selectedLanguage.value,
+                    dropDownList: _langController.languageList,
+                    onChanged: (val) {
+                      _langController.selectedLanguage.value = val;
+                      LocalizationService().changeLocale(_langController.selectedLanguage.value);
+                    },
+                  ),
                 ),
               ],
             );

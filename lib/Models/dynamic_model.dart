@@ -53,10 +53,35 @@ class AllTeamMatch {
   }
 
   Map<String, dynamic> toJson() => {
-        "2023-02-16": List<dynamic>.from(allDate.map((x) => x.toJson())),
+        'teamList': allDate == null ? [] : List<dynamic>.from(allDate.map((x) => x.toJson())),
       };
 }
 
+class TeamMatchList {
+  TeamMatchList({
+    required this.userId,
+    required this.name,
+    required this.image,
+  });
+
+  int userId;
+  String name;
+  String image;
+
+  factory TeamMatchList.fromJson(Map<String, dynamic> json) => TeamMatchList(
+        userId: json["userId"],
+        name: json["name"],
+        image: json["image"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userId": userId,
+        "image": image,
+        "name": name,
+      };
+}
+
+/// model for convert dynamic key and value to specific model
 class KeyData {
   List<TeamMatchList> keyDataList;
   String teamName;
@@ -69,49 +94,5 @@ class KeyData {
   Map<String, dynamic> toJson() => {
         "key": teamName,
         "value": keyDataList.map((e) => e.toJson()).toList(),
-      };
-}
-
-class TeamMatchList {
-  TeamMatchList({
-    required this.userId,
-    required this.symptomAndMoodMaster,
-    required this.createdDate,
-  });
-
-  int userId;
-  SymptomAndMoodMaster symptomAndMoodMaster;
-  String createdDate;
-
-  factory TeamMatchList.fromJson(Map<String, dynamic> json) => TeamMatchList(
-        userId: json["userId"],
-        symptomAndMoodMaster: SymptomAndMoodMaster.fromJson(json["symptomAndMoodMaster"]),
-        createdDate: json["createdDate"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "userId": userId,
-        "symptomAndMoodMaster": symptomAndMoodMaster.toJson(),
-        "createdDate": createdDate,
-      };
-}
-
-class SymptomAndMoodMaster {
-  SymptomAndMoodMaster({
-    required this.name,
-    required this.image,
-  });
-
-  String name;
-  String image;
-
-  factory SymptomAndMoodMaster.fromJson(Map<String, dynamic> json) => SymptomAndMoodMaster(
-        name: json["name"],
-        image: json["image"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "image": image,
       };
 }

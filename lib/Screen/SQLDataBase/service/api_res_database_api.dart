@@ -42,7 +42,7 @@ class AppResDataBase {
       for (int i = 0; i < list.length; i++) {
         geoFencingData.add(ApiResData.fromJson(list[i]));
       }
-      log('getDataByItems 00: ${geoFencingData.length}');
+      log('getDataByItems 01: ${geoFencingData.length}');
       return geoFencingData;
     } catch (e, st) {
       log('getData dataList ====> $e && st : $st');
