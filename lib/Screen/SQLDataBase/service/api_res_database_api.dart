@@ -6,11 +6,12 @@ import 'package:sqflite/sqflite.dart';
 
 class AppResDataBase {
   static DatabaseHelper databaseHelper = DatabaseHelper();
+  static const String tableName = 'UserData';
 
   /// save data to local storage   ('UserData' TableName)
   static Future<int> saveData(ApiResData apiResDataList) async {
     var dbClient = await databaseHelper.db;
-    int res = await dbClient.insert("UserData", apiResDataList.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
+    int res = await dbClient.insert(tableName, apiResDataList.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
     log('dbClient response $res');
     return res;
   }
@@ -18,7 +19,7 @@ class AppResDataBase {
   /// get data from local storage
   static Future<List<ApiResData>> getData() async {
     var dbClient = await databaseHelper.db;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM UserData');
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM $tableName');
     List<ApiResData> apiResDataList = [];
 
     for (int i = 0; i < list.length; i++) {
@@ -32,7 +33,7 @@ class AppResDataBase {
     var dbClient = await databaseHelper.db;
     try {
       List<Map<String, dynamic>> list =
-          await dbClient.rawQuery('SELECT * FROM UserData WHERE first_name = ? and id = ?', [name, id]);
+          await dbClient.rawQuery('SELECT * FROM $tableName WHERE first_name = ? and id = ?', [name, id]);
       // List<Map<String, dynamic>> list = await db.query(DatabaseHelper.table,
       //    columns: ['first_name', 'id'],
       //    where: '${DatabaseHelper.columnId} = ?',
@@ -53,7 +54,7 @@ class AppResDataBase {
   /// delete data to local storage
   static Future<int> deleteData() async {
     var dbClient = await databaseHelper.db;
-    int index = await dbClient.delete('UserData');
+    int index = await dbClient.delete(tableName);
     return index;
   }
 }
