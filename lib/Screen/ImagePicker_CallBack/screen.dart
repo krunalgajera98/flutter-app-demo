@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:demo_flutter/Screen/ImagePicker_CallBack/image_picker_controller.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ImagePickerCallBackScreen extends StatelessWidget {
   static const routeName = '/ImagePickerCallBackScreen';
@@ -30,7 +30,7 @@ class ImagePickerCallBackScreen extends StatelessWidget {
           ),
           Center(
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 await imagePickerDialog(context, (String path) {
                   print('ImagePickerDialog Path: $path');
                   _pickerController.imagePath.value = path;
@@ -48,43 +48,59 @@ class ImagePickerCallBackScreen extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return SimpleDialog(children: [
-          const SizedBox(height: 10),
-          GestureDetector(
-            onTap: () async {
-              Get.back();
-              String? path = await imagePickerFromStorage();
-              // print('imagePickerDialog selected file path: $path');
-              selectedPath.call(path ?? '');
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                'Select from files',
-              ),
+        return SimpleDialog(
+          contentPadding: const EdgeInsets.symmetric(vertical: 20),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      Get.back();
+                      String? path = await imagePickerFromStorage();
+                      // print('imagePickerDialog selected file path: $path');
+                      await selectedPath.call(path ?? '');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                        children: const [
+                          Icon(Icons.folder_open_rounded, size: 30),
+                          SizedBox(height: 5),
+                          Text('Gallery'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () async {
+                      Get.back();
+                      try {
+                        String? path = await imagePickerFromCamera();
+                        print("GetImage Crop Image Path: $path");
+                        await selectedPath.call(path ?? '');
+                      } catch (e) {
+                        debugPrint("GetImage Error: $e");
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                        children: const [
+                          Icon(Icons.camera_enhance_rounded, size: 30),
+                          SizedBox(height: 5),
+                          Text('Camera'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () async {
-              Get.back();
-              try {
-                String? path = await imagePickerFromCamera();
-                print("GetImage Crop Image Path: $path");
-                selectedPath.call(path ?? '');
-              } catch (e) {
-                debugPrint("GetImage Error: $e");
-              }
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                'Take from camera',
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-        ]);
+          ],
+        );
       },
     );
   }

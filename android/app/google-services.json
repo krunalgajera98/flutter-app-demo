@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "945117182376",
+    "firebase_url": "https://flip-clock-fecc8-default-rtdb.firebaseio.com",
+    "project_id": "flip-clock-fecc8",
+    "storage_bucket": "flip-clock-fecc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945117182376:android:440264540f90d3bd38859d",
+        "android_client_info": {
+          "package_name": "com.admin_flip_clock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945117182376-j5cc7s5a8d7ej6trojh5ons348kk249l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz5GrQTHWiY_RudrwD8v7lqHgTyLP458U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945117182376-j5cc7s5a8d7ej6trojh5ons348kk249l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "945117182376-mrc2g5cljs90vo5buo65jecsvg6cvmmn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.demoClock"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945117182376:android:e737132c37bf54ab38859d",
+        "android_client_info": {
+          "package_name": "com.example.demo_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945117182376-cf0315kaufimcksida0e7t8t1v0bfvo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.demo_flutter",
+            "certificate_hash": "b81121cfc1a496bdfe797eb52d1d2c4d178fbd8f"
+          }
+        },
+        {
+          "client_id": "945117182376-lhgdtjvpeamdo8797b0dku79hjqs7756.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.demo_flutter",
+            "certificate_hash": "48fd9d80ec2fbb9546fd1322913b1a6d28c1f06b"
+          }
+        },
+        {
+          "client_id": "945117182376-j5cc7s5a8d7ej6trojh5ons348kk249l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz5GrQTHWiY_RudrwD8v7lqHgTyLP458U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945117182376-j5cc7s5a8d7ej6trojh5ons348kk249l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "945117182376-mrc2g5cljs90vo5buo65jecsvg6cvmmn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.demoClock"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
