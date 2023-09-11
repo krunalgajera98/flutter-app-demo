@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 class PaginationController extends GetxController {
   Rx<bool> paginationLoader = false.obs;
   Rx<bool> isLoader = false.obs;
-  RxInt offset = 1.obs; // offset means total page
+  RxInt offset = 1.obs; // offset means current page from total pages
   int perPage = 2; //generally 10
   ScrollController scrollController = ScrollController();
   Rx<ApiResModel> apiResModel = ApiResModel(data: []).obs;
   ApiResModel result = ApiResModel();
 
   void onInit() {
-    userGetApiCallWithPagination(currentPage: 1);
+    userGetApiCallWithPagination();
     scrollController.addListener(Pagination);
     super.onInit();
   }
@@ -31,21 +31,20 @@ class PaginationController extends GetxController {
 
         await Future.delayed(
             Duration(seconds: 3)); //  ❌ This Delay was added to just see loader effect, Remove it when in actual use
-        await userGetApiCallWithPagination(currentPage: offset.value);
+        await userGetApiCallWithPagination();
         paginationLoader.value = false;
       }
     }
   }
 
-  Future<void> userGetApiCallWithPagination({int? currentPage}) async {
+  Future<void> userGetApiCallWithPagination() async {
     try {
       isLoader.value = true;
-      result = await ApiResService.userGetApiCallWithPagination(offset: currentPage);
+      result = await ApiResService.userGetApiCallWithPagination(offset: offset.value);
       offset.value += 1;
       apiResModel.value.data?.addAll(result.data ?? []);
       apiResModel.refresh();
     } catch (e, st) {
-      isLoader.value = false;
       log("Error Message : $e : $st");
     } finally {
       isLoader.value = false;
